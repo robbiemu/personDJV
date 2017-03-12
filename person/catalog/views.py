@@ -1,26 +1,20 @@
-from django.http import HttpResponse
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
 from rest_framework import viewsets, permissions
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
 from .models import Person
 from .serializers import PersonSerializer
- 
-class JSONResponse(HttpResponse):
-    """
-    An HttpResponse that renders its content into JSON.
-    """
-    def __init__(self, data, **kwargs):
-        content = JSONRenderer().render(data)
-        kwargs['content_type'] = 'application/json'
-        super(JSONResponse, self).__init__(content, **kwargs)
- 
-def people_list(request):
-    if request.method == 'GET':
-        people = Person.objects.all()
-        serializer = PersonSerializer(people, many=True)
-        return JSONResponse(serializer.data)
+
+class PersonViewSet(viewsets.ModelViewSet):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self, serializer):
+        kwargs = {
+            'owner': self.request.user
+        }
+
+        serializer.save(**kwargs)
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()

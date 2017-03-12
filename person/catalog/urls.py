@@ -5,9 +5,9 @@ from . import views
 
 router = DefaultRouter()
 router.register(r'users', views.UserViewSet)
+router.register(r'people', views.PersonViewSet)
 
 urlpatterns = [
-    url(r'^people/$', views.people_list),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', obtain_jwt_token),
 ]
