@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
 from .models import Person
@@ -16,7 +16,6 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
  
- 
 def people_list(request):
     if request.method == 'GET':
         people = Person.objects.all()
@@ -26,3 +25,4 @@ def people_list(request):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)

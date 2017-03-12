@@ -7,4 +7,4 @@ class Person(models.Model):
     person_lastname = models.CharField(max_length=64)
     person_dob = models.DateTimeField(auto_now_add=True)
     person_zip = models.CharField(max_length=16)
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(User, null=True, related_name="people")
