@@ -5,13 +5,15 @@ from rest_framework import serializers
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ('id','person_firstname', 'person_lastname', 'person_dob', 'person_zip')
+        fields = ('id', 'owner', 'person_firstname', 'person_lastname', 'person_dob', 'person_zip')
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'password', 'email', 'first_name', 'last_name', 'people')
-        write_only_fields = ('password',)
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
         read_only_fields = ('id',)
 
     def create(self, validated_data):
@@ -26,3 +28,9 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+def jwt_response_payload_handler(token, user=None, request=None):
+    return {
+        'token': token,
+        'user': UserSerializer(user, context={'request': request}).data,
+    }

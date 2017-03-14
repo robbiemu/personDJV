@@ -1,0 +1,21 @@
+@import '../../node_modules/vuetify/src/stylus/settings/_colors'
+
+$theme := {
+  primary: $purple.darken-3
+  accent: $yellow.accent-4
+  secondary: $grey.darken-3
+  info: $blue.base
+  warning: $amber.base
+  error: $red.base
+  success: $green.base
+}
+
+@import '../../node_modules/vuetify/src/stylus/main'
+
+input[type="text"], 
+input[type="email"], 
+input[type="password"]
+  border: none;
+  border-bottom: solid thin $theme.info
+  &:focus
+    background-color: $theme.accent
