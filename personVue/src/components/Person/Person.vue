@@ -27,6 +27,15 @@
         </v-card-text>
         <v-btn @click.native.stop="updatePerson($store, person);$router.push({name: 'People'})">Save</v-btn>
     </v-card>
+        <v-card v-if="crud==='add'">
+        <v-card-text>
+          <div name="firstname"><input type="text" v-model="person.person_firstname" placeholder="firstName" /></div>
+          <div name="lastname"><input type="text" v-model="person.person_lastname"  placeholder="lastName" /></div>
+          <div name="dob"><datepicker v-model="person.person_dob" /></div>
+          <div name="zip"><input type="text" v-model="person.person_zip" placeholder="zip" /></div>
+        </v-card-text>
+        <v-btn @click.native.stop="addPerson($store, person);$router.push({name: 'People'})">Save</v-btn>
+    </v-card>
   </div>
 </template>
 
@@ -56,6 +65,7 @@ export default {
   }),
   methods: {
     updatePerson: methods.updatePerson,
+    addPerson: methods.addPerson,
     getRandomPersonImage () {
       return '/public/people/0' + getRandomInt(1,9) + '.jpg'
     },
@@ -67,13 +77,11 @@ export default {
           id: this.id
         }
       })
-    },
-    update () {
-      this.$store.dispatch('UPDATE PERSON', this.person)
     }
   },
   mounted () {
-    this.person = Object.assign({}, this.people.find(p => p.id === this.id))
+    this.person = Object.assign({        person_zip: '1',
+        person_dob: '2017-03-12'}, this.people.find(p => p.id === this.id))
   }
 }
 </script>
@@ -92,49 +100,5 @@ export default {
   }
   .chip span {
     margin-right: 0.3rem;
-  }
-
-  $primary-color: #3F51B5;
-  $secondary-color: #FFFFFF;
-
-  .datepicker-header {
-      background-color: $primary-color !important;
-  }
-
-  .datepicker-day-effect {
-      background-color: lighten($primary-color, 5%) !important;
-  }
-
-  .datepicker-day {
-      &:hover {
-          color: $secondary-color !important;
-      }
-
-      &.selected {
-          color: $secondary-color !important;
-      }
-  }
-
-  .datepicker-date, .datepicker-year  {
-      color: $secondary-color !important;
-  }
-
-  .datepicker-actions {
-      button {
-          color: lighten($primary-color, 10%) !important;
-          &:hover {
-              background-color: darken($secondary-color, 5%) !important;
-          }
-      }
-  }
-
-  .datepicker-years {
-      .datepicker-years-content {
-          .datepicker-year {
-              &.selected, &:hover {
-                  color: $primary-color !important;
-              }
-          }
-      }
   }
 </style>
