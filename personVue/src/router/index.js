@@ -24,4 +24,10 @@ export const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  (to.meta.authentication && !store.state.auth.isAuthenticated)?
+    next({name: 'error-403'}) :
+    next()
+})
+
 sync(store, router)
