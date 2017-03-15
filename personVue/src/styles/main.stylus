@@ -19,3 +19,13 @@ input[type="password"]
   border-bottom: solid thin $theme.info
   &:focus
     background-color: $theme.accent
+
+.pull-right
+  float: right
+  right: 0
+  position: absolute
+
+.pull-left
+  float: left
+  left: 0
+  position: absolute

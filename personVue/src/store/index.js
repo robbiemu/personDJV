@@ -3,16 +3,10 @@ import Vuex from 'vuex'
 
 import modals from './Modals'
 import auth from './Auth'
+import person from './Person'
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
-  state: { people: [] },
-  mutations: {
-    setPeople: (state, people) => state.people = people
-  },
-  actions: {
-    'SET PEOPLE': ({commit}, payload) => commit('setPeople', payload)
-  },
-  modules: { modals, auth }
+  modules: { modals, auth, person }
 })

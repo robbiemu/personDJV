@@ -13,6 +13,7 @@
     "vee-validate": "^2.0.0-beta.25",
     "vue": "^2.1.10",
     "vue-axios": "^2.0.1",
+    "vue-date": "^1.1.5",
     "vue-router": "^2.2.0",
     "vue-server-renderer": "^2.1.10",
     "vuetify": "^0.8.9",

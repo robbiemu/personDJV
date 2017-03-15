@@ -1,19 +1,6 @@
 import Vue from 'vue'
 
-const contracts = {
-  login: {
-    uri: 'http://localhost:8000/api-auth/',
-    config: { headers: { 'Content-Type': 'application/json' } }
-  },
-  register: {
-    uri: 'http://localhost:8000/users/',
-    config: { headers: { 'Content-Type': 'application/json' } }    
-  },
-  people: {
-    uri: 'http://localhost:8000/people/',
-    config: { headers: { 'Content-Type': 'application/json' } }    
-  }
-}
+import  {contracts} from '../API'
 
 export const methods = {
   /* async getDefaultAuth (context) {
@@ -36,11 +23,6 @@ export const methods = {
         throw '[Auth] Error - login request from server successful, but no token returned';
       }context.dispatch('AUTH DEFAULT CONNECTION', res.data.token);
     });
-  },
-  getPeople (context) {
-    Vue.axios.get(contracts.people.uri, context.state.auth.token)
-      .then(res => context.dispatch('SET PEOPLE', res.data))
-      .catch(e => {throw(e)})
   },
   login (context, payload) {
     Vue.axios.post(contracts.login.uri, payload, 
